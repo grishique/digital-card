@@ -126,7 +126,13 @@ pnpm test
 
 GitHub Actions повторяет сборку и тесты, затем собирает Docker image, запускает Compose с чистым volume, ждёт healthcheck и проверяет GraphQL через HTTP. В конце контейнеры и тестовый volume удаляются.
 
-## Публикация на Render
+## Публикация на Railway
+
+В репозитории есть `railway.json`: сборка из Dockerfile, healthcheck `/health`, ограниченный перезапуск при ошибке. В [Railway](https://railway.com/dashboard) создайте проект из GitHub-репозитория `grishique/digital-card`. После успешного deploy в Settings → Networking создайте публичный домен (Generate Domain), указав порт 3000 или предоставленный платформой `PORT`. Открыть `<домен>/graphql`, проверить `<домен>/health`.
+
+База автоматически создаётся и заполняется из seed при старте. Для этой read-only визитки временный диск допустим: состояние полностью восстанавливается. Не подключайте volume без настройки прав записи для пользователя `node`. Для редактируемых данных понадобится постоянное хранилище. [Railway предлагает пробный кредит и тарифы с лимитами](https://railway.com/pricing); бесплатный лимит не гарантирует непрерывную работу приложения. Конфигурация не подключает платный тариф автоматически.
+
+## Альтернатива: Render
 
 В репозитории есть `render.yaml` для Docker Web Service на бесплатном плане. После входа в Render откройте [Deploy to Render](https://render.com/deploy?repo=https://github.com/grishique/digital-card), создайте Blueprint из этого репозитория и дождитесь успешного deploy. Проверить `<адрес-сервиса>/health` и `<адрес-сервиса>/graphql`. Сам факт наличия render.yaml ещё не означает, что сервис опубликован.
 
