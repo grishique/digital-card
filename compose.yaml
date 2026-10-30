@@ -1,0 +1,15 @@
+services:
+  card:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: file:/app/data/card.db
+      PORT: "3000"
+    volumes:
+      - card-data:/app/data
+    init: true
+    restart: unless-stopped
+
+volumes:
+  card-data:

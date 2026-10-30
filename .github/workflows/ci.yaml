@@ -1,0 +1,29 @@
+name: Verify
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm test
+        env:
+          NODE_ENV: production
+      - run: docker compose up --build -d --wait
+      - name: Verify container API
+        run: |
+          curl --fail http://localhost:3000/health
+          curl --fail -H 'Content-Type: application/json' --data '{"query":"{profile{name skills{name}}}"}' http://localhost:3000/graphql | tee response.json
+          node -e "const r=require('./response.json');if(r.errors||!r.data.profile.skills.length)process.exit(1)"
+      - if: always()
+        run: docker compose logs && docker compose down -v

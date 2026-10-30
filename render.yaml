@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: grishique-digital-card
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        value: file:/app/data/card.db
