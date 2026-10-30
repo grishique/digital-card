@@ -2,7 +2,11 @@
 
 Backend-визитка на **TypeScript, Node.js, NestJS, Prisma, GraphQL и Docker**. Git используется для исходников, миграций и CI. Профиль, опыт, навыки, профессиональные ссылки и проекты доступны через Apollo Sandbox.
 
-Исходники: [github.com/grishique/digital-card](https://github.com/grishique/digital-card).
+**Приложение и Apollo Sandbox:** [grishique-digital-card.onrender.com/graphql](https://grishique-digital-card.onrender.com/graphql).
+
+**Проверка доступности:** [grishique-digital-card.onrender.com/health](https://grishique-digital-card.onrender.com/health).
+
+**Исходники:** [github.com/grishique/digital-card](https://github.com/grishique/digital-card).
 
 ## Быстрый запуск
 
